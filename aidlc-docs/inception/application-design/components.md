@@ -3,6 +3,7 @@
 ## 設計サマリー
 
 - Android クライアント内は、画面、セッション制御、オーディオ再生、コンテンツ取得、設定保持を分離する。
+- 開始前画面は、初回起動時の設定入力と継続利用時の即開始を同じ画面で扱い、主要な開始操作を最優先表示とする。
 - AI 生成コンテンツ取得は Bedrock 連携用ゲートウェイ、音声生成は独立した音声生成ゲートウェイとして分離する。
 - 音声制御は UI から直接行わず、BGM と読み上げを別コンポーネントに分けて上位サービスで協調させる。
 - 初期版の終了条件はタイマー中心で設計し、睡眠検知は将来拡張用の差し込みポイントとして扱う。
@@ -12,7 +13,7 @@
 
 | コンポーネント | 区分 | 目的 | 主責務 | 公開インターフェースの例 |
 | --- | --- | --- | --- | --- |
-| SessionSetupScreenComponent | Presentation | 開始前設定の入力と表示を担う | ジャンル、モード、BGM 選択の表示と入力受付 | `render(state)` `submitStart(request)` |
+| SessionSetupScreenComponent | Presentation | 開始前設定の入力と即開始導線を担う | 初回起動時の設定入力、前回設定の要約表示、主要開始操作と補助的な設定変更導線の提示 | `render(state)` `buildQuickStartRequest()` `submitStart(request)` |
 | PlaybackScreenComponent | Presentation | 再生中の主画面を担う | 暗い画面の維持、再生状態表示、操作イベント送出 | `renderPlayback(state)` `dispatchMenuAction(action)` |
 | OverlayMenuComponent | Presentation | 再生中メニューを担う | BGM、音量、モード変更などの入力をまとめる | `showMenu(model)` `emitMenuAction(action)` |
 | SessionController | Control | セッション全体の進行を管理する | 開始、次のお題への進行、終了条件評価、セッション文脈管理の起点 | `startSession(request)` `advanceSession()` `stopSession(reason)` |

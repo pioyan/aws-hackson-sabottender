@@ -391,3 +391,146 @@ Raw input:
 - Application Design の承認を受領した。
 - Application Design を完了として記録した。
 - ユーザーの指示により Units Generation は開始せず、次フェーズ開始前の待機状態にした。
+
+## 2026-05-08T19:42:26+09:00
+
+### 仮想ユーザーレビュー - 反映依頼
+
+Raw input:
+
+> ペルソナとなりうるユーザーからaidlc-docs/inception/reviews/virtual-user-review.mdのようなレビューが来ました。AI-DLCで続けてください。
+
+- aidlc-docs/inception/reviews/virtual-user-review.md を読み込み、起動時の意思決定が多すぎるという指摘を FR-1、US-01、開始導線設計への変更要求として解釈した。
+- requirements.md を更新し、2回目以降の起動で前回設定を自動復元して主要な開始操作1回で始められる要件と、設定変更導線の補助化を反映した。
+- stories.md と personas.md を更新し、継続利用ユーザーのワンタップ開始と補助的な設定変更導線を反映した。
+- application-design artifacts を更新し、初回起動、継続利用、設定変更の 3 つの開始パターンを同じ開始ユースケースへ統合する方針を追記した。
+- aidlc-state.md のステータスを更新し、Units Generation 開始前の再確認待ち状態を維持した。
+
+### 仮想ユーザーレビュー - 再レビュー依頼
+
+Prompt presented to user:
+
+> # 📝 Virtual User Review Reflected
+>
+> 仮想ユーザーレビューで指摘された「起動時の意思決定が多すぎる」課題に対応するため、継続利用時のワンタップ開始を要件、ユーザーストーリー、開始導線設計へ反映しました。
+> - 2 回目以降の起動では前回のジャンル / 再生モードを自動復元する前提を追加
+> - 開始画面では主要な開始操作を最優先表示し、設定変更導線を補助的に扱う方針を追加
+> - 初回起動、継続利用、設定変更の 3 つの開始パターンを Application Design に反映
+>
+> **📋 <u>REVIEW REQUIRED:</u>**
+> Please examine the updated inception artifacts at: aidlc-docs/inception/requirements/requirements.md, aidlc-docs/inception/user-stories/stories.md, aidlc-docs/inception/user-stories/personas.md, and aidlc-docs/inception/application-design/
+>
+> **🚀 <u>WHAT'S NEXT?</u>**
+>
+> **You may:**
+>
+> 🔧 Request Changes - Ask for more modifications based on the virtual user review
+> ✅ Approve & Continue - Approve the updated inception artifacts and proceed to Units Generation
+
+## 2026-05-08T19:48:08+09:00
+
+### 仮想ユーザーレビュー反映 - 承認
+
+Raw input:
+
+> 「承認して続けて
+
+- 更新済みの inception artifacts に対する承認を受領した。
+- Units Generation ステージへ進行した。
+
+### Units Generation - 計画開始
+
+- units-generation.md の手順を読み込み、Part 1 の Planning から開始した。
+- requirements.md、stories.md、personas.md、execution-plan.md、application-design artifacts を読み込み、分解前提を整理した。
+- 現時点の初期仮説は「単一 Android アプリ内の複数モジュールへ分解する multi-unit monolith」であると判断した。
+- 分解粒度、story grouping、dependency 方針、team alignment、external integration の切り方、code organization を確認するため、aidlc-docs/inception/plans/unit-of-work-plan.md を作成した。
+- aidlc-state.md の Current Stage を Units Generation Planning に更新した。
+
+### Units Generation - 回答依頼
+
+Prompt presented to user:
+
+> # 🧩 Units Generation Planning Started
+>
+> 単位分解の計画を aidlc-docs/inception/plans/unit-of-work-plan.md に作成しました。
+> この計画では、Android アプリをどの粒度の unit に分けるか、story の束ね方、依存境界、外部連携の切り方、コード配置方針を確認します。
+>
+> **📋 <u>INPUT REQUIRED:</u>**
+> Please fill in each [Answer]: tag in aidlc-docs/inception/plans/unit-of-work-plan.md
+>
+> **回答方法**
+> - 各質問の [Answer]: に選択肢の記号を記入してください
+> - どれにも当てはまらない場合は X を選び、その後ろに補足を書いてください
+> - 記入が終わったら「記入しました」と返してください
+
+## 2026-05-08T19:55:49+09:00
+
+### Units Generation - 回答受領
+
+Raw input:
+
+> 理解＆記入しました。次に進んでください。
+
+- unit-of-work-plan.md を読み込み、Q1 から Q7 までの回答がすべて埋まっていることを確認した。
+- 回答は Q1=B, Q2=C, Q3=A, Q4=B, Q5=C, Q6=C, Q7=C であり、分解粒度・grouping・依存・コード配置の方針として整合していると判断した。
+- 曖昧さや矛盾は検出されず、follow-up question は不要と判断した。
+- unit-of-work-plan.md に回答分析結果と暫定的な分解イメージを追記した。
+- aidlc-state.md の Status を plan 承認待ちへ更新した。
+
+### Units Generation - 承認依頼
+
+Prompt presented to user:
+
+> Unit of work plan complete. Review the plan in aidlc-docs/inception/plans/unit-of-work-plan.md. Ready to proceed to generation?
+
+## 2026-05-08T19:58:14+09:00
+
+### Units Generation - 計画承認
+
+Raw input:
+
+> 承認
+
+- unit of work plan の承認を受領した。
+- Units Generation の生成フェーズを開始した。
+
+### Units Generation - 生成完了
+
+- aidlc-docs/inception/application-design/unit-of-work.md を生成し、5 unit の責務、コード配置戦略、推奨実装順序を定義した。
+- aidlc-docs/inception/application-design/unit-of-work-dependency.md を生成し、unit 間依存、parallel track、critical path を整理した。
+- aidlc-docs/inception/application-design/unit-of-work-story-map.md を生成し、US-01 から US-07 と FUTURE-01 の primary / supporting ownership を割り当てた。
+- unit-of-work-plan.md の実行チェックリストを更新し、unit 境界検証と story 割当確認を完了した。
+- aidlc-state.md の Current Stage を Units Generation Review に更新した。
+
+### Units Generation - 承認依頼
+
+Prompt presented to user:
+
+> # 🔧 Units Generation Complete
+>
+> - Android アプリを 5 つの unit に分解し、multi-unit monolith としての責務境界を定義しました。
+> - unit 間の依存関係、並行開発トラック、推奨実装順序を整理しました。
+> - すべての初期版ストーリーと将来バックログを unit に割り当て、トレーサビリティを確認しました。
+>
+> **📋 <u>REVIEW REQUIRED:</u>**
+> Please examine the units generation artifacts at: aidlc-docs/inception/application-design/
+>
+> **🚀 <u>WHAT'S NEXT?</u>**
+>
+> **You may:**
+>
+> 🔧 Request Changes - Ask for modifications to the units generation if required
+> ✅ Approve & Continue - Approve units and proceed to CONSTRUCTION PHASE
+
+## 2026-05-08T20:02:12+09:00
+
+### Units Generation - 承認
+
+Raw input:
+
+> 承認しました。Functional Designに進まず、aidlc-stateの更新をして
+
+- Units Generation の承認を受領した。
+- Units Generation を完了として記録した。
+- ユーザーの指示により Functional Design は開始せず、次フェーズ開始前の待機状態にした。
+- aidlc-state.md を更新し、Current Phase を CONSTRUCTION、Current Stage を Waiting Before Functional Design に変更した。

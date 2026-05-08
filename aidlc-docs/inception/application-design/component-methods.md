@@ -4,6 +4,7 @@
 
 - インターフェース粒度は中間粒度を採用する。
 - 主要ユースケースを起点にしつつ、補助操作も明示する。
+- 開始前画面は初回起動と継続利用で異なる開始導線を持つが、どちらも同じ開始ユースケースへ変換する。
 - ここで定義するのは高レベルのシグネチャであり、詳細ロジックは Functional Design で詰める。
 
 ## Presentation コンポーネント
@@ -12,9 +13,10 @@
 
 | メソッド | 目的 | 入力 | 出力 |
 | --- | --- | --- | --- |
-| `buildSessionStartRequest(input: SetupInput): SessionStartRequest` | 開始前設定をセッション開始要求へ変換する | `SetupInput` | `SessionStartRequest` |
+| `buildSessionStartRequest(input: SetupInput): SessionStartRequest` | 設定変更後の入力をセッション開始要求へ変換する | `SetupInput` | `SessionStartRequest` |
 | `renderSetupState(state: SetupUiState): Unit` | 開始前設定画面を描画する | `SetupUiState` | `Unit` |
-| `loadInitialSelections(): SetupUiState` | 前回設定を反映した初期状態を作る | なし | `SetupUiState` |
+| `loadInitialSelections(): SetupUiState` | 前回設定と初回起動判定を反映した開始画面状態を作る | なし | `SetupUiState` |
+| `buildQuickStartRequest(state: SetupUiState): SessionStartRequest` | 復元済み設定から即開始用の要求を作る | `SetupUiState` | `SessionStartRequest` |
 
 ### PlaybackScreenComponent
 

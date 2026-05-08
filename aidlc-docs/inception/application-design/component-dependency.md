@@ -4,7 +4,7 @@
 
 | 依存元 | 依存先 | 依存種別 | 理由 |
 | --- | --- | --- | --- |
-| SessionSetupScreenComponent | SetupConfigurationService | 同期呼び出し | 前回設定の復元と開始要求生成のため |
+| SessionSetupScreenComponent | SetupConfigurationService | 同期呼び出し | 前回設定の復元、即開始導線の構築、設定変更状態の生成のため |
 | SessionSetupScreenComponent | SessionApplicationService | 同期呼び出し | セッション開始要求を渡すため |
 | PlaybackScreenComponent | SessionApplicationService | イベント通知 | 再生中の操作と終了要求を渡すため |
 | PlaybackScreenComponent | SetupConfigurationService | 同期呼び出し | メニュー表示時の設定値取得のため |
@@ -27,6 +27,7 @@
 ## 通信パターン
 
 - Presentation からサービス層へはユーザー意図ベースのイベント送信を行う。
+- 開始前画面は SetupConfigurationService から初回起動 / 継続利用の状態を受け取り、継続利用時は即開始導線を優先表示する。
 - サービス層からコンポーネント / adapter へは同期呼び出しを基本とする。
 - オーディオ進行は AudioOrchestrationService が順序制御し、UI に直接依存させない。
 - Bedrock と音声生成サーバーは、それぞれ専用 gateway を通じて呼び出す。
@@ -36,7 +37,7 @@
 ### 1. セッション開始フロー
 
 ```text
-SessionSetupScreenComponent
+SessionSetupScreenComponent (前回設定で開始 / 設定変更)
   -> SetupConfigurationService
   -> SessionApplicationService
   -> SessionController

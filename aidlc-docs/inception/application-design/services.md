@@ -15,6 +15,7 @@
 ### SessionApplicationService
 
 - セッション開始要求を受け取り、開始前設定を確定する。
+- 復元済み設定による即開始要求と、設定変更後の開始要求を同じ開始フローで扱う。
 - ContentOrchestrationService から初期シーケンスを受け取り、AudioOrchestrationService に再生を依頼する。
 - SessionTerminationPolicy の結果を受けてセッション継続または終了を判断する。
 - SessionContextService へ文脈情報の保存を依頼する。
@@ -41,7 +42,8 @@
 
 ### SetupConfigurationService
 
-- 前回使用したジャンル、モード、BGM、音量の既定値を復元する。
+- 初回起動か継続利用かを判定し、前回使用したジャンル、モード、BGM、音量の既定値を復元する。
+- 継続利用時は、前回設定で即開始できる主要導線向けの状態を返す。
 - セッション開始前の選択内容を保存する。
 - 再生中メニューからの変更を永続化対象へ変換する。
 
